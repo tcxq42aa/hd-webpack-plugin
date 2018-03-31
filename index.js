@@ -15,7 +15,6 @@ class HDPlugin {
       designWidth: 375,
       ...options
     };
-    inlineScript = inlineScript.replace('baseDpr', 1).replace('remUnit', 100);
   }
 
   // 动态注入 px2rem-loader
