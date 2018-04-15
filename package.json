@@ -1,6 +1,6 @@
 {
   "name": "hd-webpack-plugin",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Add High-definition processing script when using HtmlWebpackPlugin.",
   "main": "index.js",
   "author": "xuqi",
@@ -8,7 +8,9 @@
   "publishConfig": {
     "registry": "http://registry.npm.dooioo.cn/"
   },
-  "devDependencies": {
-    "lodash": "^4.17.5"
+  "dependencies": {
+    "lodash": "^4.17.5",
+    "px2rem": "^0.5.0",
+    "px2rem-loader": "^0.1.9"
   }
 }

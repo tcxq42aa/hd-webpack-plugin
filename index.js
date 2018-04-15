@@ -12,6 +12,7 @@ class HDPlugin {
   constructor(options = {}) {
     // default options
     this.options = {
+      exclude: null,
       designWidth: 375,
       ...options
     };
@@ -26,23 +27,29 @@ class HDPlugin {
     loaders.splice(idx + 1, 0, {
       loader: px2remLoaderFile,
       options: {
-        remUnit: 75 / 2 * this.options.designWidth / 375,
-        threeVersion: true
+        remUnit: 75 / 2 * this.options.designWidth / 375
       },
     })
   }
 
   apply(compiler) {
-
     compiler.hooks.compilation.tap(pluginName, (compilation) => {
       compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tap(pluginName, (data, cb) => {
+        if(this.options.exclude) {
+          if(this.options.exclude.test(data.outputName.replace(/.*\//, ''))) {
+            return;
+          }
+        }
         const headRegExp = /(<\/head\s*>)/i;
         data.html = data.html.replace(headRegExp, match => '<script type="text/javascript">'+ inlineScript + '</script>' + match);
       });
     });
     compiler.hooks.normalModuleFactory.tap(pluginName, (data) => {
       data.hooks.afterResolve.tapAsync(pluginName, (compiler, callback) => {
-        this.injectPx2remLoader(compiler.resource, compiler.loaders);
+        if(this.options.exclude && this.options.exclude.test(compiler.resource)) {
+        } else {
+          this.injectPx2remLoader(compiler.resource, compiler.loaders);
+        }
         callback()
       })
     });
