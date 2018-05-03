@@ -1,6 +1,6 @@
 {
   "name": "hd-webpack-plugin",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Add High-definition processing script when using HtmlWebpackPlugin.",
   "main": "index.js",
   "author": "xuqi",
